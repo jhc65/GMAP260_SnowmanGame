@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.Space) && Time.time > nextFire && canShoot) {
+		if ((Input.GetKey(KeyCode.Space) || (Input.GetMouseButtonDown(0))) && Time.time > nextFire && canShoot) {
 			nextFire = Time.time + fireRate;
 			GameObject bullet = bullets[nextBullet++];
 			if (nextBullet >= bullets.Length) {
