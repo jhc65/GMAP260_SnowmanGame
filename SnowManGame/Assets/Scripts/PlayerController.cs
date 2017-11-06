@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public float rotateSpeed;
-	public float speed;
+	public float rotateSpeed = 2.0f;
+	public float MoveSpeed = 10.0f;
 	public GameObject snowball;
 	public Transform shotSpawn;
 	public float fireRate;
@@ -53,19 +53,11 @@ public class PlayerController : MonoBehaviour {
 			bullet.transform.rotation = shotSpawn.rotation;
 			bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 		}
-
-		if (Input.GetAxis("Vertical") > 0) {
-			transform.position += transform.forward * Time.deltaTime * speed;
-		} 
-		if (Input.GetAxis("Vertical") < 0) {
-			transform.position -= transform.forward * Time.deltaTime * speed;
-		} 
-		if (Input.GetAxis("Horizontal") < 0) {
-			transform.Rotate (0,  -rotateSpeed, 0);
-		} 
-		if (Input.GetAxis("Horizontal") > 0) {
-			transform.Rotate (0,  rotateSpeed, 0);
-		}
+			
+		transform.Translate (MoveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime, 0f, MoveSpeed*Input.GetAxis("Vertical")*Time.deltaTime);
+	
+		float h = rotateSpeed * Input.GetAxis ("Mouse X");
+		transform.Rotate (0, h, 0);
 	}
 
 	public void DisableShooting() {
