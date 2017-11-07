@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 79b3e85ba6f194904a733af22a09553e
-timeCreated: 1509505768
+timeCreated: 1510085991
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemyHitSound: {fileID: 8300000, guid: 97051a2d0ac1442248438da733b24831, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
