@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Enemy") {
+
 			hp--;
 			if (hp <= 0) { // dead, so stop spawning and "destroy" player
 				GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>().Disable();
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 			bullets[i].SetActive(false);
 		}
 		nextBullet = 0;
+
 	}
 
 	// Update is called once per frame

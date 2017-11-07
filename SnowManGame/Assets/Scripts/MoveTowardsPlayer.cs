@@ -8,9 +8,14 @@ public class MoveTowardsPlayer : MonoBehaviour {
     public float speed = 5f;
 	private int hp = 2;
 	private Color hitColor = new Color(0f,0f,0f);
+
+	public AudioClip enemyHitSound;
+	private AudioSource source;
 		
     void Start () {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+		source = GetComponent<AudioSource>();
     }
 
 	void Update () {
@@ -24,6 +29,9 @@ public class MoveTowardsPlayer : MonoBehaviour {
 			
 			// "Remove" bullet
 			collision.collider.gameObject.SetActive(false);
+
+			//hit sound
+			source.Play();
 
 			hp--;
 			GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
