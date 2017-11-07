@@ -17,8 +17,11 @@ public class PlayerController : MonoBehaviour {
 	private float bulletSpeed = 20f;
 
 	private bool canShoot = true;
-	private int hp = 1;
-
+	private int hp = 3;
+	private float angleH = 0;                                          // Float to store camera horizontal angle related to mouse movement.
+	private float angleV = 0;                                          // Float to store camera horizontal angle related to mouse movement.
+	public float maxVerticalAngle = 10f;                               // Camera max clamp angle. 
+	public float minVerticalAngle = -20f;                              // Camera min clamp angle.
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Enemy") {
 			hp--;
@@ -37,6 +40,10 @@ public class PlayerController : MonoBehaviour {
 			bullets[i].SetActive(false);
 		}
 		nextBullet = 0;
+
+		Vector3 rot = transform.localRotation.eulerAngles;
+		Cursor.visible = false;
+
 	}
 
 	// Update is called once per frame
@@ -54,10 +61,20 @@ public class PlayerController : MonoBehaviour {
 			bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 		}
 			
+		// Slide snowman around
 		transform.Translate (MoveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime, 0f, MoveSpeed*Input.GetAxis("Vertical")*Time.deltaTime);
 	
-		float h = rotateSpeed * Input.GetAxis ("Mouse X");
-		transform.Rotate (0, h, 0);
+		// Mouse movement
+		angleH += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * rotateSpeed;
+		angleH += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * rotateSpeed;
+
+		// Set vertical movement limit.
+		angleV = Mathf.Clamp(angleV, minVerticalAngle, maxVerticalAngle);
+
+		// Set camera orientation.
+		Quaternion camYRotation = Quaternion.Euler(0, angleH, 0);
+		Quaternion aimRotation = Quaternion.Euler(0f, angleH, 0);
+		transform.rotation = aimRotation;
 	}
 
 	public void DisableShooting() {
