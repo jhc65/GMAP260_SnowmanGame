@@ -15,14 +15,14 @@ public class EnemySpawner : MonoBehaviour {
 	public float frequency = 5.0F;
 
 	private float spawnCooldown = 0.0f;
-	private bool enabled = true;
+	private bool isEnabled = true;
 
 	void Start () {
 		
 	}
 	
 	void Update () {
-		if (!enabled)
+		if (!isEnabled)
 			return;
 		
 		if (spawnCooldown <= 0.0f && spawnPoints.Length > 0) {
@@ -38,10 +38,10 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void Enable() {
-		enabled = true;
+		isEnabled = true;
 	}
 
 	public void Disable() {
-		enabled = false; 
+		isEnabled = false; 
 	}
 }

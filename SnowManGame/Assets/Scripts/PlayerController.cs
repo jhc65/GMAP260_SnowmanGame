@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
+	/*
+	 * 
+	 * 
+	 * 
+	 * NOT IN USE
+	 * 
+	 */
 	public float rotateSpeed = 2.0f;
 	public float MoveSpeed = 10.0f;
 	public GameObject snowball;

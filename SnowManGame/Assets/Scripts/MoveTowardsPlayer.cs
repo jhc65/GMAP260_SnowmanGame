@@ -10,11 +10,13 @@ public class MoveTowardsPlayer : MonoBehaviour {
 	private Color hitColor = new Color(0f,0f,0f);
 		
     void Start () {
+		// Cannot make this public since it needs to find player's position as the game runs as it moves
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 	void Update () {
 		if (target == null) return;
+
 		Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
 		transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
