@@ -93,7 +93,8 @@ public class vThirdPersonCamera : MonoBehaviour
         targetLookAt = new GameObject("targetLookAt").transform;
         targetLookAt.position = currentTarget.position;
         targetLookAt.hideFlags = HideFlags.HideInHierarchy;
-        targetLookAt.rotation = currentTarget.rotation;     
+        //targetLookAt.rotation = currentTarget.rotation;     
+		targetLookAt.rotation = Quaternion.Euler(0, 0, 0);     
 
         mouseY = currentTarget.eulerAngles.x;
         mouseX = currentTarget.eulerAngles.y;

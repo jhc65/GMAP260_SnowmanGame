@@ -96,8 +96,8 @@ namespace Invector.CharacterController
 
         protected virtual void StrafeInput()
         {
-            if (Input.GetKeyDown(strafeInput))
-                cc.Strafe();
+          //  if (Input.GetKeyDown(strafeInput))
+            //    cc.Strafe();
         }
 
         protected virtual void SprintInput()
@@ -110,8 +110,8 @@ namespace Invector.CharacterController
 
         protected virtual void JumpInput()
         {
-            if (Input.GetKeyDown(jumpInput))
-                cc.Jump();
+          //  if (Input.GetKeyDown(jumpInput))
+            //    cc.Jump();
         }
 
         protected virtual void ExitGameInput()

@@ -14,7 +14,8 @@ namespace Invector.CharacterController
 
         public virtual void Sprint(bool value)
         {                                   
-            isSprinting = value;            
+            //isSprinting = value;  
+			isSprinting = false;
         }
 
         public virtual void Strafe()
@@ -22,7 +23,7 @@ namespace Invector.CharacterController
             if (locomotionType == LocomotionType.OnlyFree) return;
             isStrafing = !isStrafing;
         }
-
+		/*
         public virtual void Jump()
         {
             // conditions to do this action
@@ -38,6 +39,7 @@ namespace Invector.CharacterController
             else
                 animator.CrossFadeInFixedTime("JumpMove", 0.2f);
         }
+        */
 
         public virtual void RotateWithAnotherTransform(Transform referenceTransform)
         {

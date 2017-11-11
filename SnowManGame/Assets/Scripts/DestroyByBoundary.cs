@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DestroyByBoundary : MonoBehaviour {
 
+	public bool isEnabled;
 	void OnTriggerExit(Collider col) {
 
 		// Hide object (don't want to destroy bullets!)
-		col.gameObject.SetActive(false);
+		if (isEnabled)
+			col.gameObject.SetActive(false);
 	}
 }

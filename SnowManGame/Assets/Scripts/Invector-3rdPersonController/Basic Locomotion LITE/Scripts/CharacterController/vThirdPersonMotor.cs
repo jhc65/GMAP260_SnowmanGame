@@ -221,19 +221,21 @@ namespace Invector.CharacterController
 
         void StrafeMovement()
         {
-            var _speed = Mathf.Clamp(input.y, -1f, 1f);
-            var _direction = Mathf.Clamp(input.x, -1f, 1f);
+
+			var _speed = Mathf.Clamp(input.y, -strafeWalkSpeed, strafeWalkSpeed);
+			var _direction = Mathf.Clamp(input.x, -strafeWalkSpeed, strafeWalkSpeed);
             speed = _speed;
             direction = _direction;
-            if (isSprinting) speed += 0.5f;
+            if (isSprinting) speed += strafeSprintSpeed;
             if (direction >= 0.7 || direction <= -0.7 || speed <= 0.1) isSprinting = false;
         }
 
         public virtual void FreeMovement()
         {
+			
             // set speed to both vertical and horizontal inputs
             speed = Mathf.Abs(input.x) + Mathf.Abs(input.y);            
-            speed = Mathf.Clamp(speed, 0, 1f);
+            speed = Mathf.Clamp(speed, 0, 100f);
             // add 0.5f on sprint to change the animation on animator
             if (isSprinting) speed += 0.5f;
                         
@@ -255,6 +257,7 @@ namespace Invector.CharacterController
         }
         protected void ControlSpeed(float velocity)
         {
+
             if (Time.deltaTime == 0) return;
 
             if (useRootMotion)
@@ -265,6 +268,7 @@ namespace Invector.CharacterController
             }
             else
             {
+
                 var velY = transform.forward * velocity * speed;
                 velY.y = _rigidbody.velocity.y;
                 var velX = transform.right * velocity * direction;
@@ -275,12 +279,16 @@ namespace Invector.CharacterController
                     Vector3 v = (transform.TransformDirection(new Vector3(input.x, 0, input.y)) * (velocity > 0 ? velocity : 1f));
                     v.y = _rigidbody.velocity.y;
                     _rigidbody.velocity = Vector3.Lerp(_rigidbody.velocity, v, 20f * Time.deltaTime);
-                }
+					print(_rigidbody.velocity);
+
+				}
                 else
                 {
                     _rigidbody.velocity = velY;
                     _rigidbody.AddForce(transform.forward * (velocity * speed) * Time.deltaTime, ForceMode.VelocityChange);
-                }
+					print(_rigidbody.velocity);
+
+				}
             }
         }
 
@@ -351,6 +359,7 @@ namespace Invector.CharacterController
 
         void CheckGround()
         {
+
             CheckGroundDistance();
 
             // change the physics material to very slip when not grounded or maxFriction when is
@@ -391,6 +400,7 @@ namespace Invector.CharacterController
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
                 }
             }
+
         }
 
         void CheckGroundDistance()
@@ -457,6 +467,7 @@ namespace Invector.CharacterController
 
         bool StepOffset()
         {
+			
             if (input.sqrMagnitude < 0.1 || !isGrounded) return false;
 
             var _hit = new RaycastHit();
@@ -473,7 +484,9 @@ namespace Invector.CharacterController
                     return true;
                 }
             }
+            
             return false;
+            
         }
 
         #endregion

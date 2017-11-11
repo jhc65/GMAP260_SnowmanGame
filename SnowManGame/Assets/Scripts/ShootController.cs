@@ -6,12 +6,12 @@ public class ShootController : MonoBehaviour {
 
 	public GameObject snowball;
 	public float fireRate;
+	public float bulletSpeed = 20f;
 
 	private static int numBullets = 20;
 	private GameObject[] bullets = new GameObject[numBullets];
 	private float nextFire = 0;
 	private int nextBullet;
-	private float bulletSpeed = 20f;
 
 	private bool canShoot = true;
 
@@ -49,5 +49,13 @@ public class ShootController : MonoBehaviour {
 
 	public void EnableShooting() {
 		canShoot = true;
+	}
+
+	public float GetBulletLaunchSpeed() {
+		return bulletSpeed;
+	}
+
+	public void SetBulletLaunchSpeed(float s) {
+		bulletSpeed = s;
 	}
 }
