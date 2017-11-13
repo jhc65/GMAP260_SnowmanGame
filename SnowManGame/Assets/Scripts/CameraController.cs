@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour {
 	public Space offsetPositionSpace = Space.Self;
 
 	void Start () {
+		// Disable cursor
+		Cursor.visible = false;
 
 		//Calculate and store the offset value by getting the distance between the player's position and camera's position.
 		//offset = transform.rotation - player.transform.rotation;
@@ -34,6 +36,7 @@ public class CameraController : MonoBehaviour {
 		// compute rotation
 		if (lookAt) {
 			transform.LookAt(target);
+			transform.rotation =Quaternion.Euler(30f,target.rotation.y, target.rotation.z);
 		}
 		else {
 			transform.rotation = target.rotation;
