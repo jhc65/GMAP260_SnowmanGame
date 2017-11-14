@@ -26,10 +26,10 @@ public class MoveTowardsPlayer : MonoBehaviour {
     }
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.tag == "Projectile") {
+		if (collision.collider.GetComponent<Collider>().tag == "Projectile") {
 			
 			// "Remove" bullet
-			collision.collider.gameObject.SetActive(false);
+			collision.collider.GetComponent<Collider>().gameObject.SetActive(false);
 
 			hp--;
 			//GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
