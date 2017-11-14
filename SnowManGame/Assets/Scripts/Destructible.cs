@@ -22,6 +22,8 @@ public class Destructible : MonoBehaviour {
 		if (col.gameObject.CompareTag("Projectile")) {
 			Instantiate(destroyedVersion, transform.position, transform.rotation);
 			Destroy(gameObject);
+			Destroy(destroyedVersion.GetComponent<Rigidbody>());
+
 		}
 	}
 }
