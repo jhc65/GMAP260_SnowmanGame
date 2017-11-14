@@ -15,6 +15,7 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
 	void Update () {
 		/*
+		 * Trying to rotate bunnies towards player and keep them from falling over?
 		var newRotation = new Vector3(transform.eulerAngles.x, target.eulerAngles.y, transform.eulerAngles.z);
 		transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(newRotation), .5f * Time.fixedDeltaTime);
 		Quaternion targetRotation = transform.rotation;
@@ -26,10 +27,10 @@ public class MoveTowardsPlayer : MonoBehaviour {
     }
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.GetComponent<Collider>().tag == "Projectile") {
+		if (collision.collider.tag == "Projectile") {
 			
 			// "Remove" bullet
-			collision.collider.GetComponent<Collider>().gameObject.SetActive(false);
+			collision.collider.gameObject.SetActive(false);
 
 			hp--;
 			//GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
