@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour {
 		
 		}
 		else {
-			transform.rotation = target.rotation;
+		//	transform.rotation = target.rotation;
 		}
 	}
 }
