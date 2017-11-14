@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class MoveTowardsPlayer : MonoBehaviour {
 
-    private Transform target;
+	private Transform target;
     public float speed = 5f;
-	private int hp = 2;
+	private int hp = 1;
 	private Color hitColor = new Color(0f,0f,0f);
 		
     void Start () {
-		// Cannot make this public since it needs to find player's position as the game runs as it moves
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+		target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 	void Update () {
-		if (target == null) return;
+		/*
+		var newRotation = new Vector3(transform.eulerAngles.x, target.eulerAngles.y, transform.eulerAngles.z);
+		transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(newRotation), .5f * Time.fixedDeltaTime);
+		Quaternion targetRotation = transform.rotation;
+		*/
 
-		Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+		// Head in a straight line towards player
+		Vector3 targetPosition = target.position;
 		transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
 
@@ -28,7 +32,7 @@ public class MoveTowardsPlayer : MonoBehaviour {
 			collision.collider.gameObject.SetActive(false);
 
 			hp--;
-			GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
+			//GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
 			if (hp <= 0)
 				Destroy(gameObject);
 				

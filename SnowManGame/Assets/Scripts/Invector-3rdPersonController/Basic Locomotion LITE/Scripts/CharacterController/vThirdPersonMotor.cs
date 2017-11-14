@@ -222,12 +222,12 @@ namespace Invector.CharacterController
         void StrafeMovement()
         {
 
-			var _speed = Mathf.Clamp(input.y, -strafeWalkSpeed, strafeWalkSpeed);
-			var _direction = Mathf.Clamp(input.x, -strafeWalkSpeed, strafeWalkSpeed);
-            speed = _speed;
-            direction = _direction;
-            if (isSprinting) speed += strafeSprintSpeed;
-            if (direction >= 0.7 || direction <= -0.7 || speed <= 0.1) isSprinting = false;
+		//	var _speed = Mathf.Clamp(input.y, -strafeWalkSpeed, strafeWalkSpeed);
+			//var _direction = Mathf.Clamp(input.x, -strafeWalkSpeed, strafeWalkSpeed);
+          //  speed = _speed;
+          //  direction = _direction;
+           // if (isSprinting) speed += strafeSprintSpeed;
+         //   if (direction >= 0.7 || direction <= -0.7 || speed <= 0.1) isSprinting = false;
         }
 
         public virtual void FreeMovement()

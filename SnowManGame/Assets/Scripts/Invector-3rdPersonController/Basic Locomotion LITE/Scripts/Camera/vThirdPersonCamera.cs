@@ -103,7 +103,7 @@ public class vThirdPersonCamera : MonoBehaviour
         currentHeight = height;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (target == null || targetLookAt == null) return;
 

@@ -1,76 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-	/*
-	 * 
-	 * 
-	 * 
-	 * NOT IN USE
-	 * 
-	 */
-	public float rotateSpeed = 2.0f;
-	public float MoveSpeed = 10.0f;
-	public GameObject snowball;
-	public Transform shotSpawn;
-	public float fireRate;
 
-	private static int numBullets = 20;
-	private GameObject[] bullets = new GameObject[numBullets];
-	private float nextFire = 0;
-	private int nextBullet;
-	private float bulletSpeed = 20f;
+    public float speed = 18;
 
-	private bool canShoot = true;
-	private int hp = 1;
+    private Rigidbody rig;
 
-	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.tag == "Enemy") {
-			hp--;
-			if (hp <= 0) { // dead, so stop spawning and "destroy" player
-				GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>().Disable();
-				gameObject.SetActive(false);
-			}
-		}
+	// Use this for initialization
+	void Start () 
+    {
+        rig = GetComponent<Rigidbody>();
 	}
-
-	void Start () {
-
-		// Instantiate projectiles
-		for (int i = 0; i < bullets.Length; i++) {
-			bullets[i] = (GameObject)Instantiate(snowball);
-			bullets[i].SetActive(false);
-		}
-		nextBullet = 0;
-	}
-
-	// Update is called once per frame
-	void Update () {
-		if ((Input.GetKey(KeyCode.Space) || (Input.GetMouseButtonDown(0))) && Time.time > nextFire && canShoot) {
-			nextFire = Time.time + fireRate;
-			GameObject bullet = bullets[nextBullet++];
-			if (nextBullet >= bullets.Length) {
-				nextBullet = 0;
-			}
-
-			bullet.SetActive(true);
-			bullet.transform.position = shotSpawn.position;
-			bullet.transform.rotation = shotSpawn.rotation;
-			bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-		}
-			
-		transform.Translate (MoveSpeed*Input.GetAxis("Horizontal")*Time.deltaTime, 0f, MoveSpeed*Input.GetAxis("Vertical")*Time.deltaTime);
 	
-		float h = rotateSpeed * Input.GetAxis ("Mouse X");
-		transform.Rotate (0, h, 0);
-	}
+	// Update is called once per frame
+	void Update () 
+    {
+        float hAxis = Input.GetAxis("Horizontal");
+        float vAxis = Input.GetAxis("Vertical");
 
-	public void DisableShooting() {
-		canShoot = false;
-	}
+		Vector3 movement = new Vector3(hAxis * speed * Time.deltaTime, 0, vAxis* speed * Time.deltaTime) ;
 
-	public void EnableShooting() {
-		canShoot = true;
+		transform.Translate(movement);
 	}
 }

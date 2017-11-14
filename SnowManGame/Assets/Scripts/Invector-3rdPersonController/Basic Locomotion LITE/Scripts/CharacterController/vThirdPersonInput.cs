@@ -79,7 +79,7 @@ namespace Invector.CharacterController
 
             if (!cc.lockMovement)
             {
-                MoveCharacter();
+           //     MoveCharacter();
                 SprintInput();
                 StrafeInput();
                 JumpInput();
@@ -90,8 +90,8 @@ namespace Invector.CharacterController
 
         protected virtual void MoveCharacter()
         {            
-            cc.input.x = Input.GetAxis(horizontalInput);
-            cc.input.y = Input.GetAxis(verticallInput);
+          //  cc.input.x = Input.GetAxis(horizontalInput);
+            //cc.input.y = Input.GetAxis(verticallInput);
         }
 
         protected virtual void StrafeInput()

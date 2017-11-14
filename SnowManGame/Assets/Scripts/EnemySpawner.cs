@@ -20,7 +20,11 @@ public class EnemySpawner : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+
+	// Update spawn points to always be in front of the player
+	void UpdateSpawnPoints() {
+
+	}
 	void Update () {
 		if (!isEnabled)
 			return;
