@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour {
 			transform.LookAt(target);
 
 			// Copy rotation of player
-			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, this.transform.localEulerAngles.y, player.transform.rotation.y);
+			transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
 		//	transform.rotation = up and down with mouse Y
 		
 		}
