@@ -6,10 +6,14 @@ public class Destructible : MonoBehaviour {
 
 	public GameObject destroyedVersion;
 
+	//get snowball-impact-wood.wav
+	private AudioSource audio;
+	public AudioClip snowballImpactWood;
+
 
 	// Use this for initialization
 	void Start () {
-		
+		audio = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +28,12 @@ public class Destructible : MonoBehaviour {
 			Destroy(gameObject);
 			Destroy(destroyedVersion.GetComponent<Rigidbody>());
 
+			PlaySound (snowballImpactWood, transform.position);
+
 		}
+	}
+
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }

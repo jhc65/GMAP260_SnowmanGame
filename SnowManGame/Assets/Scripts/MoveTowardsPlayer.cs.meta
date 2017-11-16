@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 79b3e85ba6f194904a733af22a09553e
-timeCreated: 1509505768
+timeCreated: 1510786416
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowballImpactBunny: {fileID: 8300000, guid: 6b957991bee7343c7af1e1f1cdc49d81,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

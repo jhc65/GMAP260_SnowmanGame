@@ -10,6 +10,11 @@ public class BallCollision : MonoBehaviour {
 	//private Vector3 initialScale;
 	//private float slowDownOnImpact = 3f;
 
+	// get audio src snowball-impact-snow.wav
+	private AudioSource audio;
+	public AudioClip snowballImpactGroundSound;
+
+
 	// Use this for initialization
 	void Start () {
 		//initialScale = transform.localScale;
@@ -27,6 +32,8 @@ public class BallCollision : MonoBehaviour {
 			GameObject spawnedParticlEffect = GameObject.Instantiate(collisionEffect, landingPos, Quaternion.identity);
 			spawnedParticlEffect.SetActive(true);
 
+			PlaySound (snowballImpactGroundSound, transform.position);
+
 			// to shrink snowball
 			//transform.localScale = new Vector3(initialScale.x / collisionShrinkFactor, initialScale.y / collisionShrinkFactor, initialScale.z / collisionShrinkFactor);
 			Vector3 vel = transform.GetComponent<Rigidbody>().velocity;
@@ -35,6 +42,11 @@ public class BallCollision : MonoBehaviour {
 			//transform.GetComponent<Rigidbody>().velocity = new Vector3(vel.x, vel.y, vel.z / slowDownOnImpact);
 			transform.gameObject.SetActive(false);
 
-		}
+		}// else if(collision.gameObject.tag == "Tree")
+			// play snowball hit tree sound
+	}
+
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }
