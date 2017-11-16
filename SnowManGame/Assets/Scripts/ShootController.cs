@@ -15,6 +15,9 @@ public class ShootController : MonoBehaviour {
 
 	private bool canShoot = true;
 
+	// get snowball-throw.wav
+	public AudioClip snowballThrowSound;
+	private AudioSource audio;
 
 	void Start () {
 
@@ -24,6 +27,8 @@ public class ShootController : MonoBehaviour {
 			bullets[i].SetActive(false);
 		}
 		nextBullet = 0;
+
+		audio = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -34,6 +39,8 @@ public class ShootController : MonoBehaviour {
 			if (nextBullet >= bullets.Length) {
 				nextBullet = 0;
 			}
+
+			AudioSource.PlayClipAtPoint (snowballThrowSound, transform.position);
 
 			bullet.SetActive(true);
 			bullet.transform.position = transform.position;

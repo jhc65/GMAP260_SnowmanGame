@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 040b57eb2c93b40de87cc772c34cd3dc
-timeCreated: 1510112391
+timeCreated: 1510788104
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowball: {instanceID: 0}
+  - snowballThrowSound: {fileID: 8300000, guid: b0d7e269e41694759beb70c727778ea5,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -9,8 +9,15 @@ public class MoveTowardsPlayer : MonoBehaviour {
 	private int hp = 1;
 	private Color hitColor = new Color(0f,0f,0f);
 		
+	// get audio src snowball-impact-rabbit.wav
+	public AudioClip snowballImpactBunnySound;
+	private AudioSource audio;
+
     void Start () {
 		target = GameObject.FindGameObjectWithTag("Player").transform;
+
+		// init audio
+		audio = GetComponent<AudioSource> ();
     }
 
 	void Update () {
@@ -28,6 +35,18 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Projectile") {
+
+
+			//if (collision.gameObject.tag == "SnowBall") {
+			//	//play snowball hit bunny
+			//	Debug.Log ("snowball");
+			//} else if (collision.gameObject.tag == "SplitUpTree") {
+			//	Debug.Log ("tree");
+			//	//play tree hit bunny
+			//}
+
+			// play rabbit bone crunching sound
+			PlaySound(snowballImpactBunnySound, transform.position);
 			
 			// "Remove" bullet
 			collision.collider.gameObject.SetActive(false);
@@ -38,5 +57,9 @@ public class MoveTowardsPlayer : MonoBehaviour {
 				Destroy(gameObject);
 				
 		}
+	}
+
+	void PlaySound(AudioClip clip, Vector3 vector){
+		AudioSource.PlayClipAtPoint (clip, vector);
 	}
 }
