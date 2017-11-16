@@ -46,7 +46,7 @@ public class BallCollision : MonoBehaviour {
 			// play snowball hit tree sound
 	}
 
-	void PlaySound(AudioClip clip, Vector3 vector){
-		AudioSource.PlayClipAtPoint (clip, vector);
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }

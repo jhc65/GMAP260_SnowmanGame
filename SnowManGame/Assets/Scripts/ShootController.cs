@@ -40,7 +40,8 @@ public class ShootController : MonoBehaviour {
 				nextBullet = 0;
 			}
 
-			AudioSource.PlayClipAtPoint (snowballThrowSound, transform.position);
+			//AudioSource.PlayClipAtPoint (snowballThrowSound, transform.position);
+			PlaySound (snowballThrowSound, transform.position);
 
 			bullet.SetActive(true);
 			bullet.transform.position = transform.position;
@@ -64,5 +65,9 @@ public class ShootController : MonoBehaviour {
 
 	public void SetBulletLaunchSpeed(float s) {
 		bulletSpeed = s;
+	}
+
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }
