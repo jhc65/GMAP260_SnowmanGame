@@ -5,10 +5,15 @@ using UnityEngine;
 public class Destructible : MonoBehaviour {
 
 	public GameObject destroyedVersion;
+	public AudioClip onHitSound;
+	public bool explosionEnabled = true;
 
-	//get snowball-impact-wood.wav
+	public float explosionRadius = 10f;
+	public float explosionPower = 500f;
+	public float explosionUpwardsForce = 10f;
+
 	private AudioSource audio;
-	public AudioClip snowballImpactWood;
+
 
 
 	// Use this for initialization
@@ -21,14 +26,31 @@ public class Destructible : MonoBehaviour {
 		
 	}
 
+	// Create an explosion at position pos
+	void TriggerExplosion(Vector3 pos) {
+		Collider[] colliders = Physics.OverlapSphere(pos, explosionRadius);
+		foreach (Collider hit in colliders) {
+			Rigidbody rb = hit.GetComponent<Rigidbody>();
+			if (rb != null && rb.gameObject.CompareTag("Enemy")) {
+				rb.AddExplosionForce(explosionPower, pos, explosionRadius, explosionUpwardsForce);
+			}
+		}
+
+		foreach (Rigidbody rb in destroyedVersion.GetComponentsInChildren<Rigidbody>())
+			rb.detectCollisions = false;
+	}
+
+
 	// If a snowball hits a tree, spawn the destroyed one and remove the old one
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.CompareTag("Projectile")) {
 			Instantiate(destroyedVersion, transform.position, transform.rotation);
 			Destroy(gameObject);
-			Destroy(destroyedVersion.GetComponent<Rigidbody>());
+			if (explosionEnabled) {
+				TriggerExplosion(destroyedVersion.transform.position);
+			}
 
-			PlaySound (snowballImpactWood, transform.position);
+			PlaySound (onHitSound, transform.position);
 
 		}
 	}
