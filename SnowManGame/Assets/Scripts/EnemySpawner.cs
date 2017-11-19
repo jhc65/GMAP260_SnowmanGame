@@ -25,6 +25,7 @@ public class EnemySpawner : MonoBehaviour {
 	void UpdateSpawnPoints() {
 
 	}
+
 	void Update () {
 		if (!isEnabled)
 			return;
