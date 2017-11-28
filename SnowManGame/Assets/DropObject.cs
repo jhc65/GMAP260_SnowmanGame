@@ -7,7 +7,7 @@ public class DropObject : MonoBehaviour {
 	public GameObject obj;
 	public bool enabled = true;
 	public float fireRate = 1f;
-
+	public float fromHeight = 10f;
 	private float nextFire = 0f;
 
 
@@ -22,7 +22,7 @@ public class DropObject : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 
 			GameObject spawnedObj = GameObject.Instantiate(obj);
-			spawnedObj.transform.position = gameObject.transform.position;
+			spawnedObj.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + fromHeight, gameObject.transform.position.z);
 
 		}
 	}

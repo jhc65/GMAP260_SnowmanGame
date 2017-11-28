@@ -11,35 +11,58 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
 
 	public GameObject enemy;
-	public Vector3[] spawnPoints;
-	public float frequency = 5.0F;
+	public GameObject[] spawnPoints;
+	public int[] numberPerRound; // spawn this many in wave
+	public float[] frequencies; // increase frequency per wave
 
 	private float spawnCooldown = 0.0f;
 	private bool isEnabled = true;
+	private int currentRound;
+	private int numSpawnedThisRound;
 
 	void Start () {
-		
+		currentRound = 0;
 	}
 
-	// Update spawn points to always be in front of the player
+	// Update spawn points to always be the ones in front of the player
 	void UpdateSpawnPoints() {
+
+	}
+
+	void Spawn() {
+		int i = Random.Range(0, spawnPoints.Length); // random spawn point
+		Vector3 spawnPosition = spawnPoints[i].transform.position;
+		GameObject spawnedEnemy = GameObject.Instantiate(enemy);
+		spawnedEnemy.transform.position = spawnPosition;
+		spawnCooldown = frequencies[currentRound];
+		numSpawnedThisRound++;
+
+		// If all bunnies are spawned for the round, begin next round
+		if (numSpawnedThisRound == numberPerRound[currentRound] && currentRound < numberPerRound.Length - 1) { 
+			currentRound++;
+		}
+	}
+
+	// Simulate round using array values set above
+	void RunRound() {
+		if (spawnCooldown <= 0.0f && spawnPoints.Length > 0) {
+			Spawn();
+		}
+		else {
+			spawnCooldown -= Time.deltaTime;
+		}
+
+
 
 	}
 
 	void Update () {
 		if (!isEnabled)
 			return;
-		
-		if (spawnCooldown <= 0.0f && spawnPoints.Length > 0) {
-			int i = Random.Range(0, spawnPoints.Length); // random spawn point
-			Vector3 spawnPosition = spawnPoints[i];
-			GameObject spawnedEnemy = GameObject.Instantiate(enemy);
-			spawnedEnemy.transform.position = spawnPosition;
-			spawnCooldown = frequency;
-		}
-		else {
-			spawnCooldown -= Time.deltaTime;
-		}
+
+		RunRound();
+
+
 	}
 
 	public void Enable() {

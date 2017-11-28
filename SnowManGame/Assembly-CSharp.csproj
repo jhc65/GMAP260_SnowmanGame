@@ -56,6 +56,7 @@
      <Compile Include="Assets\DropObject.cs" />
      <Compile Include="Assets\FPSWalkerEnhanced.cs" />
      <Compile Include="Assets\Player_Movement.cs" />
+     <Compile Include="Assets\RemoveObjectAfterTime.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Destructible.cs" />
