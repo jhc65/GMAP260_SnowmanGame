@@ -7,11 +7,13 @@ public class ShootController : MonoBehaviour {
 	public GameObject snowball;
 	public float fireRate;
 	public float bulletSpeed = 20f;
+	public LayerMask refillzone;
 
 	private static int numBullets = 20;
 	private GameObject[] bullets = new GameObject[numBullets];
 	private float nextFire = 0;
 	private int nextBullet;
+	private int armo = 10;
 
 	private bool canShoot = true;
 
@@ -33,9 +35,9 @@ public class ShootController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if ((Input.GetKey(KeyCode.Space) || (Input.GetMouseButton(0))) && Time.time > nextFire && canShoot) {
+		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time > nextFire && canShoot) {
 			nextFire = Time.time + fireRate;
-			GameObject bullet = bullets[nextBullet++];
+			GameObject bullet = bullets [nextBullet++];
 			if (nextBullet >= bullets.Length) {
 				nextBullet = 0;
 			}
@@ -43,10 +45,22 @@ public class ShootController : MonoBehaviour {
 			//AudioSource.PlayClipAtPoint (snowballThrowSound, transform.position);
 			PlaySound (snowballThrowSound, transform.position);
 
-			bullet.SetActive(true);
+			bullet.SetActive (true);
 			bullet.transform.position = transform.position;
 			bullet.transform.rotation = transform.rotation;
-			bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+			bullet.GetComponent<Rigidbody> ().velocity = transform.forward * bulletSpeed;
+
+			armo--;
+			if (armo <= 0) {
+				DisableShooting ();
+			}
+		}
+
+		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down),Color.blue, 3f);
+		if (Physics.Raycast (transform.position, transform.TransformDirection (Vector3.down), 3f, refillzone.value) && armo == 0) {
+			print ("refill!!!!!!!!!!!");
+			armo = 10;
+			EnableShooting ();
 		}
 
 	}
