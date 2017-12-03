@@ -5,10 +5,16 @@ using UnityEngine;
 public class BallCollision : MonoBehaviour {
 
 	public GameObject collisionEffect;
+	public GameObject collisionEffectBlood;
 	//public float collisionShrinkFactor = 2f;
 
 	//private Vector3 initialScale;
 	//private float slowDownOnImpact = 3f;
+
+	// get audio src snowball-impact-snow.wav
+	private AudioSource audio;
+	public AudioClip snowballImpactGroundSound;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,20 +27,28 @@ public class BallCollision : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.tag == "Ground") {
 			Vector3 landingPos = transform.position;
-			landingPos.y += .5f; // Show a bit more above ground
+			landingPos.y += .5f; 
 			GameObject spawnedParticlEffect = GameObject.Instantiate(collisionEffect, landingPos, Quaternion.identity);
 			spawnedParticlEffect.SetActive(true);
-
-			// to shrink snowball
-			//transform.localScale = new Vector3(initialScale.x / collisionShrinkFactor, initialScale.y / collisionShrinkFactor, initialScale.z / collisionShrinkFactor);
-			Vector3 vel = transform.GetComponent<Rigidbody>().velocity;
-
-			//if you want to slow down snowball and not destroy it
-			//transform.GetComponent<Rigidbody>().velocity = new Vector3(vel.x, vel.y, vel.z / slowDownOnImpact);
 			transform.gameObject.SetActive(false);
 
+		if (collision.gameObject.CompareTag("Ground")) {
+			PlaySound (snowballImpactGroundSound, transform.position);
 		}
+		if (collision.gameObject.CompareTag("Enemy")) {
+			Vector3 pos = collision.gameObject.transform.position;
+			pos.y += 1f;
+			GameObject bloodEffect = GameObject.Instantiate(collisionEffectBlood, pos, Quaternion.identity);
+			bloodEffect.SetActive(true);
+
+		}
+			
+		//}// else if(collision.gameObject.tag == "Tree")
+			// play snowball hit tree sound
+	}
+
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }

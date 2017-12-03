@@ -4,34 +4,37 @@ using UnityEngine;
 
 public class MoveTowardsPlayer : MonoBehaviour {
 
-    private Transform target;
+	private Transform target;
     public float speed = 5f;
-	private int hp = 2;
-	private Color hitColor = new Color(0f,0f,0f);
+	private int hp = 1;
+	private Color hitColor = new Color(255f,0f,0f);
 		
+	// get audio src snowball-impact-rabbit.wav
+	public AudioClip snowballImpactBunnySound;
+	private AudioSource audio;
+
     void Start () {
-		// Cannot make this public since it needs to find player's position as the game runs as it moves
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+		target = GameObject.FindGameObjectWithTag("Player").transform;
+
+		// init audio
+		audio = GetComponent<AudioSource> ();
     }
 
 	void Update () {
-		if (target == null) return;
 
-		Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 1f, target.position.z);
+		// Head in a straight line towards player
+		Vector3 targetPosition = target.position;
 		transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Projectile") {
 			
-			// "Remove" bullet
-			collision.collider.gameObject.SetActive(false);
-
-			hp--;
-			GetComponent<MeshRenderer>().material.color = hitColor; // Effect to show enemy was hit. Change color to white
-			if (hp <= 0)
-				Destroy(gameObject);
 				
 		}
+	}
+
+	void PlaySound(AudioClip clip, Vector3 location){
+		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }
