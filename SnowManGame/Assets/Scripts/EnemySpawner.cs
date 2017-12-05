@@ -20,7 +20,14 @@ public class EnemySpawner : MonoBehaviour {
 	private int currentRound;
 	private int numSpawnedThisRound;
 
-	void Start () {
+
+    public GUIText gameOverText;
+    public GUIText restartText;
+
+    private bool gameOver;
+    private bool restart;
+
+    void Start () {
 		currentRound = 0;
 	}
 
@@ -41,6 +48,12 @@ public class EnemySpawner : MonoBehaviour {
 		if (numSpawnedThisRound == numberPerRound[currentRound] && currentRound < numberPerRound.Length - 1) { 
 			currentRound++;
 		}
+        if (gameOver)
+        {
+            restartText.text = "Press 'R' for Restart!";
+            restart = true;
+           
+        }
 	}
 
 	// Simulate round using array values set above
@@ -51,7 +64,7 @@ public class EnemySpawner : MonoBehaviour {
 		else {
 			spawnCooldown -= Time.deltaTime;
 		}
-
+        
 
 
 	}
@@ -63,7 +76,15 @@ public class EnemySpawner : MonoBehaviour {
 		RunRound();
 
 
-	}
+        if (restart)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+
+    }
 
 	public void Enable() {
 		isEnabled = true;
@@ -72,4 +93,9 @@ public class EnemySpawner : MonoBehaviour {
 	public void Disable() {
 		isEnabled = false; 
 	}
+    public void GameOver()
+    {
+        gameOverText.text = "Game Over";
+        gameOver = true;
+    }
 }
