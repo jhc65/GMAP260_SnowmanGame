@@ -9,6 +9,7 @@ public class SnowmanHealth : MonoBehaviour {
     public GameObject bottom;
     public GameObject leftHand;
     public GameObject rightHand;
+    public GameObject shotSpawner;
     private EnemySpawner enemySpanwer;
     // Use this for initialization
     void Start () {
@@ -48,7 +49,7 @@ public class SnowmanHealth : MonoBehaviour {
                 middle.SetActive(false);
                 leftHand.SetActive(false);
                 rightHand.SetActive(false);
-               
+                shotSpawner.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + middle.transform.lossyScale.y, gameObject.transform.position.z);
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - middle.transform.lossyScale.y, gameObject.transform.position.z);
                 
             }
