@@ -58,6 +58,7 @@
      <Compile Include="Assets\FPSWalkerEnhanced.cs" />
      <Compile Include="Assets\Player_Movement.cs" />
      <Compile Include="Assets\RemoveObjectAfterTime.cs" />
+     <Compile Include="Assets\Scripts\BowlingBallCollision.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Destructible.cs" />
@@ -76,6 +77,9 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerDamage.cs" />
      <Compile Include="Assets\Scripts\ShootController.cs" />
+     <Compile Include="Assets\Scripts\SnowBallCollision.cs" />
+     <Compile Include="Assets\Scripts\SnowBombExplosion.cs" />
+     <Compile Include="Assets\SnowmanHealth.cs" />
      <Compile Include="Assets\StayOnGround.cs" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

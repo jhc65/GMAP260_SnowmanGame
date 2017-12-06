@@ -10,20 +10,10 @@ public class SnowmanHealth : MonoBehaviour {
     public GameObject leftHand;
     public GameObject rightHand;
     public GameObject shotSpawner;
-    private EnemySpawner enemySpanwer;
-    // Use this for initialization
+
+	// Use this for initialization
     void Start () {
         health = 3;
-        GameObject enemySpanwerObject = GameObject.FindWithTag("Respawn");
-        if (enemySpanwerObject != null)
-        {
-            enemySpanwer = enemySpanwerObject.GetComponent<EnemySpawner>();
-
-        }
-        else
-        {
-            Debug.Log("cannot find 'EnemySpawner'");
-        }
 
     }
 
@@ -32,6 +22,8 @@ public class SnowmanHealth : MonoBehaviour {
     {
 
     }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
