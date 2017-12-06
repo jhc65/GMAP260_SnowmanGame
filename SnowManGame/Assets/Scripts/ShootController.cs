@@ -10,7 +10,6 @@ public class ShootController : MonoBehaviour {
     public float specialFireRate;
 	public float fireRate;
 	public float bulletSpeed = 20f;
-	public LayerMask refillzone;
 
 	private static int numBullets = 20;
 	private GameObject[] bullets = new GameObject[numBullets];
@@ -20,7 +19,6 @@ public class ShootController : MonoBehaviour {
 	private int nextBullet;
     private int nextSpecialBullet;
     private int nextBombBullet;
-	private int armo = 10;
 
 	private bool canShoot = true;
 
@@ -49,7 +47,7 @@ public class ShootController : MonoBehaviour {
 	void Update () {
 		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time >= nextFire && canShoot) {
 			nextFire = Time.time + fireRate;
-			GameObject bullet = bullets [nextBullet++];
+			GameObject bullet = bullets[nextBullet++];
 			if (nextBullet >= bullets.Length) {
 				nextBullet = 0;
 			}
@@ -57,15 +55,10 @@ public class ShootController : MonoBehaviour {
 			//AudioSource.PlayClipAtPoint (snowballThrowSound, transform.position);
 			PlaySound (snowballThrowSound, transform.position);
 
-			bullet.SetActive (true);
+			bullet.SetActive(true);
 			bullet.transform.position = transform.position;
 			bullet.transform.rotation = transform.rotation;
-			bullet.GetComponent<Rigidbody> ().velocity = transform.forward * bulletSpeed;
-
-			armo--;
-			if (armo <= 0) {
-				DisableShooting ();
-			}
+			bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 		}
 
         if (Input.GetKey(KeyCode.T) && Time.time >= nextSpecialFire) {

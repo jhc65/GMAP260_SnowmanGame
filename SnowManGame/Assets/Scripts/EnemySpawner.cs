@@ -32,10 +32,14 @@ public class EnemySpawner : MonoBehaviour {
 	void Spawn() {
 		int i = Random.Range(0, spawnPoints.Length); // random spawn point
 		Vector3 spawnPosition = spawnPoints[i].transform.position;
-		GameObject spawnedEnemy = GameObject.Instantiate(enemy);
-		spawnedEnemy.transform.position = spawnPosition;
-		spawnCooldown = frequencies[currentRound];
-		numSpawnedThisRound++;
+        for(int j = 0; j < 10; j++)
+        {
+            GameObject spawnedEnemy = GameObject.Instantiate(enemy);
+            spawnedEnemy.transform.position = new Vector3(spawnPosition.x + Random.Range(0f, 15f), spawnPosition.y, spawnPosition.z + Random.Range(0f, 15f));
+            numSpawnedThisRound++;
+        }
+
+        spawnCooldown = frequencies[currentRound];
 
 		// If all bunnies are spawned for the round, begin next round
 		if (numSpawnedThisRound == numberPerRound[currentRound] && currentRound < numberPerRound.Length - 1) { 
