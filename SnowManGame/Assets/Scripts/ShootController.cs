@@ -19,6 +19,8 @@ public class ShootController : MonoBehaviour {
 	private int nextBullet;
     private int nextSpecialBullet;
     private int nextBombBullet;
+    private int armo;
+    private GameObject refillzone;
 
 	private bool canShoot = true;
 
@@ -84,12 +86,12 @@ public class ShootController : MonoBehaviour {
             snowbomb.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         }
 
-        Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down),Color.blue, 3f);
-		if (Physics.Raycast (transform.position, transform.TransformDirection (Vector3.down), 3f, refillzone.value) && armo == 0) {
-			print ("refill!!!!!!!!!!!");
-			armo = 10;
-			EnableShooting ();
-		}
+  //      Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down),Color.blue, 3f);
+		//if (Physics.Raycast (transform.position, transform.TransformDirection (Vector3.down), 3f, refillzone.value) && armo == 0) {
+		//	print ("refill!!!!!!!!!!!");
+		//	armo = 10;
+		//	EnableShooting ();
+		//}
 
     }
 
