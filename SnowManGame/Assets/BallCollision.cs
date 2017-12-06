@@ -15,7 +15,6 @@ public class BallCollision : MonoBehaviour {
 	private AudioSource audio;
 	public AudioClip snowballImpactGroundSound;
 
-
 	// Use this for initialization
 	void Start () {
 		//initialScale = transform.localScale;
@@ -27,11 +26,11 @@ public class BallCollision : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-			Vector3 landingPos = transform.position;
-			landingPos.y += .5f; 
-			GameObject spawnedParticlEffect = GameObject.Instantiate(collisionEffect, landingPos, Quaternion.identity);
-			spawnedParticlEffect.SetActive(true);
-			transform.gameObject.SetActive(false);
+		Vector3 landingPos = transform.position;
+		landingPos.y += .5f; 
+		GameObject spawnedParticlEffect = GameObject.Instantiate(collisionEffect, landingPos, Quaternion.identity);
+		spawnedParticlEffect.SetActive(true);
+		transform.gameObject.SetActive(false);
 
 		if (collision.gameObject.CompareTag("Ground")) {
 			PlaySound (snowballImpactGroundSound, transform.position);

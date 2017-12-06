@@ -55,7 +55,20 @@ public class Destructible : MonoBehaviour {
 		}
 	}
 
-	void PlaySound(AudioClip clip, Vector3 location){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Projectile")) {
+            Instantiate(destroyedVersion, transform.position, transform.rotation);
+            Destroy(gameObject);
+            if (explosionEnabled) {
+                TriggerExplosion(destroyedVersion.transform.position);
+            }
+
+            PlaySound(onHitSound, transform.position);
+        }
+    }
+
+    void PlaySound(AudioClip clip, Vector3 location){
 		AudioSource.PlayClipAtPoint (clip, location);
 	}
 }

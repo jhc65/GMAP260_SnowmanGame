@@ -5,14 +5,21 @@ using UnityEngine;
 public class ShootController : MonoBehaviour {
 
 	public GameObject snowball;
+    public GameObject bowlingSnowBall;
+    public GameObject snowBomb;
+    public float specialFireRate;
 	public float fireRate;
 	public float bulletSpeed = 20f;
 	public LayerMask refillzone;
 
 	private static int numBullets = 20;
 	private GameObject[] bullets = new GameObject[numBullets];
-	private float nextFire = 0;
+    private float totalLiveTimeInSeconds = 7.0f;
+    private float nextFire = 0;
+    private float nextSpecialFire = 0;
 	private int nextBullet;
+    private int nextSpecialBullet;
+    private int nextBombBullet;
 	private int armo = 10;
 
 	private bool canShoot = true;
@@ -28,14 +35,19 @@ public class ShootController : MonoBehaviour {
 			bullets[i] = (GameObject)Instantiate(snowball);
 			bullets[i].SetActive(false);
 		}
-		nextBullet = 0;
+        //for (int i = 0; i < specialBullets.Length; i++) {
+        //    specialBullets[i] = (GameObject)Instantiate(bowlingSnowBall);
+        //    specialBullets[i].SetActive(false);
+        //}
+        nextBullet = 0;
+        nextSpecialBullet = 0;
 
 		audio = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time > nextFire && canShoot) {
+		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time >= nextFire && canShoot) {
 			nextFire = Time.time + fireRate;
 			GameObject bullet = bullets [nextBullet++];
 			if (nextBullet >= bullets.Length) {
@@ -56,16 +68,39 @@ public class ShootController : MonoBehaviour {
 			}
 		}
 
-		Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down),Color.blue, 3f);
+        if (Input.GetKey(KeyCode.T) && Time.time >= nextSpecialFire) {
+            nextSpecialFire = Time.time + specialFireRate;
+            GameObject bowlingBullet = (GameObject)Instantiate(bowlingSnowBall);
+
+            PlaySound(snowballThrowSound, transform.position);
+            
+            bowlingBullet.transform.position = transform.position;
+            bowlingBullet.transform.rotation = transform.rotation;
+            bowlingBullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        }
+
+        if (Input.GetKey(KeyCode.F) && Time.time >= nextSpecialFire) {
+            nextSpecialFire = Time.time + specialFireRate;
+
+            GameObject snowbomb = (GameObject)Instantiate(snowBomb);
+
+            PlaySound(snowballThrowSound, transform.position);
+
+            snowbomb.transform.position = transform.position;
+            snowbomb.transform.rotation = transform.rotation;
+            snowbomb.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        }
+
+        Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.down),Color.blue, 3f);
 		if (Physics.Raycast (transform.position, transform.TransformDirection (Vector3.down), 3f, refillzone.value) && armo == 0) {
 			print ("refill!!!!!!!!!!!");
 			armo = 10;
 			EnableShooting ();
 		}
 
-	}
+    }
 
-	public void DisableShooting() {
+    public void DisableShooting() {
 		canShoot = false;
 	}
 
