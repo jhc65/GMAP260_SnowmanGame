@@ -29,7 +29,7 @@ public class SnowmanHealth : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             health--;
-            Debug.Log("Hello", gameObject);
+            //Debug.Log("Hello", gameObject);
             if (health == 2)
             {
                 bottom.SetActive(false);

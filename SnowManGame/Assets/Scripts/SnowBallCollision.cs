@@ -21,6 +21,7 @@ public class SnowBallCollision : MonoBehaviour {
 
         if (collision.gameObject.CompareTag("Ground")) {
             PlaySound(snowballImpactGroundSound, transform.position);
+			Debug.Log ("ground");
         }
         if (collision.gameObject.CompareTag("Enemy")) {
             Vector3 pos = collision.gameObject.transform.position;
