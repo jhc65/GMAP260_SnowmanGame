@@ -11,7 +11,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
 
 	public GameObject enemy;
-	public GameObject[] spawnPoints;
+    public GameObject snowman;
+    public GameObject[] spawnPoints;
 	public int[] numberPerRound; // spawn this many in wave
 	public float[] frequencies; // increase frequency per wave
 
@@ -29,15 +30,40 @@ public class EnemySpawner : MonoBehaviour {
 
 	}
 
-	void Spawn() {
-		int i = Random.Range(0, spawnPoints.Length); // random spawn point
-		Vector3 spawnPosition = spawnPoints[i].transform.position;
-        for(int j = 0; j < 10; j++)
+    public Vector3 GetClosestSpawnPoint(Vector3 snowmanPosition)
+    {
+        int point = 0;
+        float minDist = Mathf.Infinity;
+        for(int i = 0; i < spawnPoints.Length; i++)
+        {
+            float dist = Vector3.Distance(spawnPoints[i].transform.position, snowmanPosition);
+            if (dist < minDist)
+            {
+                point = i;
+                minDist = dist;
+            }
+        }
+
+        return spawnPoints[point].transform.position;
+    }
+
+    void Spawn() {
+        Vector3 snowmanPosition = snowman.transform.position;
+        Vector3 spawnPoint = GetClosestSpawnPoint(snowmanPosition);
+
+        for (int j = 0; j < 10; j++)
         {
             GameObject spawnedEnemy = GameObject.Instantiate(enemy);
-            spawnedEnemy.transform.position = new Vector3(spawnPosition.x + Random.Range(0f, 15f), spawnPosition.y, spawnPosition.z + Random.Range(0f, 15f));
+            spawnedEnemy.transform.position = new Vector3(spawnPoint.x + Random.Range(0f, 15f), spawnPoint.y, spawnPoint.z + Random.Range(0f, 15f));
+        }
+
+        for (int j = 0; j < 10; j++)
+        {
+            GameObject spawnedEnemy = GameObject.Instantiate(enemy);
+            spawnedEnemy.transform.position = new Vector3(snowmanPosition.x + Random.Range(0f, 15f), snowmanPosition.y, snowmanPosition.z + Random.Range(0f, 15f));
             numSpawnedThisRound++;
         }
+
 
         spawnCooldown = frequencies[currentRound];
 
