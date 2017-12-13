@@ -37,7 +37,7 @@ public class MoveTowardsPlayer : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag == "Projectile") {
-			
+			PlaySound(snowballImpactBunnySound, gameObject.transform.position);
 				
 		}
 	}

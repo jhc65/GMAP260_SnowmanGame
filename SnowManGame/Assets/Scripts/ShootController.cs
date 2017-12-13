@@ -47,7 +47,10 @@ public class ShootController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time >= nextFire && canShoot) {
+		if (!canShoot)
+			return;
+		
+		if ((Input.GetKey (KeyCode.Space) || (Input.GetMouseButton (0))) && Time.time >= nextFire) {
 			nextFire = Time.time + fireRate;
 			GameObject bullet = bullets[nextBullet++];
 			if (nextBullet >= bullets.Length) {
@@ -81,7 +84,7 @@ public class ShootController : MonoBehaviour {
 
             PlaySound(snowballThrowSound, transform.position);
 
-            snowbomb.transform.position = transform.position;
+			snowbomb.transform.position = new Vector3(transform.position.x + 0f, transform.position.y + 3f, transform.position.z + 3f);
             snowbomb.transform.rotation = transform.rotation;
             snowbomb.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         }

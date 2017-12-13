@@ -39,7 +39,7 @@ public class DayAndNightCycle : MonoBehaviour {
 			intensityMultiplier = Mathf.Clamp01((currentTimeOfDay - 0.23f) * (1 / 0.02f));
 		}
 		else if (currentTimeOfDay >= 0.73f) {
-			intensityMultiplier = Mathf.Clamp01(1 - ((currentTimeOfDay - 0.73f) * (1 / 0.02f)));
+			currentTimeOfDay = .35f;
 		}
 
 		sun.intensity = sunInitialIntensity * intensityMultiplier;

@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour {
     public GameObject[] spawnPoints;
 	public int[] numberPerRound; // spawn this many in wave
 	public float[] frequencies; // increase frequency per wave
+	public int numBunniesInGroup = 5;
 
 	private float spawnCooldown = 0.0f;
 	private bool isEnabled = true;
@@ -51,18 +52,20 @@ public class EnemySpawner : MonoBehaviour {
         Vector3 snowmanPosition = snowman.transform.position;
         Vector3 spawnPoint = GetClosestSpawnPoint(snowmanPosition);
 
-        for (int j = 0; j < 10; j++)
+		for (int j = 0; j < numBunniesInGroup; j++)
         {
-            GameObject spawnedEnemy = GameObject.Instantiate(enemy);
-            spawnedEnemy.transform.position = new Vector3(spawnPoint.x + Random.Range(0f, 15f), spawnPoint.y, spawnPoint.z + Random.Range(0f, 15f));
-        }
+			GameObject spawnedEnemy = GameObject.Instantiate(enemy);
+			spawnedEnemy.transform.position = new Vector3(spawnPoint.x + Random.Range(0f, 15f) + j * 10, spawnPoint.y, spawnPoint.z + Random.Range(0f, 15f));
 
-        for (int j = 0; j < 10; j++)
+		}
+
+		for (int j = 0; j < numBunniesInGroup; j++)
         {
             GameObject spawnedEnemy = GameObject.Instantiate(enemy);
-            spawnedEnemy.transform.position = new Vector3(snowmanPosition.x + Random.Range(0f, 15f), snowmanPosition.y, snowmanPosition.z + Random.Range(0f, 15f));
+			spawnedEnemy.transform.position = new Vector3(snowmanPosition.x + Random.Range(0f, 15f) + j * 10, snowmanPosition.y, snowmanPosition.z + Random.Range(0f, 15f));
             numSpawnedThisRound++;
         }
+
 
 
         spawnCooldown = frequencies[currentRound];

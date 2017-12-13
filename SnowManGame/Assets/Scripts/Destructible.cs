@@ -51,6 +51,7 @@ public class Destructible : MonoBehaviour {
 			}
 
 			PlaySound (onHitSound, transform.position);
+			GameObject.FindGameObjectWithTag("HitBox").GetComponent<SnowmanHealth>().IncrementBunniesKilled();
 
 		}
 	}
@@ -65,6 +66,8 @@ public class Destructible : MonoBehaviour {
             }
 
             PlaySound(onHitSound, transform.position);
+			GameObject.FindGameObjectWithTag("HitBox").GetComponent<SnowmanHealth>().IncrementBunniesKilled();
+
         }
     }
 
